@@ -112,8 +112,8 @@ while True:
 		print('EP regen chance:',airStats['epRegenChance'])
 		print('EP regen:',airStats['epRegenCount'])
 		print()
-		for ability in range(len(airStats)-4):
-			print(airStats[ability])
+		for ability in range(len(airStats['abilities'])):
+			print(airStats['abilities'][ability])
 		print()
 		input() 
 		opponent = randint(1,2)
@@ -153,9 +153,9 @@ while True:
 			print('HP:',HP)
 			print('EP:',EP)
 			print()
-			for ability in range(len(airStats)-4):
+			for ability in range(len(airStats['abilities'])):
 				y = str(ability+1)+')'
-				print(y,airStats[ability])
+				print(y,airStats['abilities'][ability])
 			print()
 
 			attack = getch()
@@ -229,8 +229,8 @@ while True:
 		print('EP regen:',waterStats['epRegenCount'])
 		print()
 		print('Abilities')
-		for ability in range(len(waterStats)-4):
-			print(waterStats[ability])
+		for ability in range(len(waterStats['abilities'])):
+			print(waterStats['abilities'][ability])
 		print()
 		input()
 		opponent = randint(1,2)
@@ -273,9 +273,9 @@ while True:
 			print('HP:',HP)
 			print('EP:',EP)
 			print()
-			for ability in range(len(waterStats)-4):
+			for ability in range(len(waterStats['abilities'])):
 				y = str(ability+1)+')'
-				print(y,waterStats[ability])
+				print(y,waterStats['abilities'][ability])
 			print()
 
 			attack = getch()
@@ -346,8 +346,8 @@ while True:
 		print('EP regen:',earthStats['epPoints'])
 		print()
 		print('Abilities')
-		for ability in range(len(earthStats)-4):
-			print(earthStats[ability])
+		for ability in range(len(earthStats['abilities'])):
+			print(earthStats['abilities'][ability])
 		print()
 		input()
 		opponentSinkHole = 0
@@ -389,9 +389,9 @@ while True:
 			print('HP:',HP)
 			print('EP:',EP)
 			print()
-			for ability in range(len(earthStats)-4):
+			for ability in range(len(earthStats['abilities'])):
 				y = str(ability+1)+')'
-				print(y,earthStats[ability])
+				print(y,earthStats['abilities'][ability])
 			print()
 
 			attack = getch()
@@ -464,8 +464,8 @@ while True:
 		print('EP regen:',fireStats['epRegenCount'])
 		print()
 		print('Abilities')
-		for ability in range(len(fireStats)-4):
-			print(fireStats[ability])
+		for ability in range(len(fireStats['abilities'])):
+			print(fireStats['abilities'][ability])
 		print()
 		input()
 		opponent = randint(1,2)
@@ -505,9 +505,9 @@ while True:
 			print('HP:',HP)
 			print('EP:',EP)
 			print()
-			for ability in range(len(fireStats)-4):
+			for ability in range(len(fireStats['abilities'])):
 				y = str(ability+1)+')'
-				print(y,fireStats[ability])	
+				print(y,fireStats['abilities'][ability])	
 			print()
 
 			attack = getch()
@@ -582,8 +582,8 @@ while True:
 		print('EP regen:',cloneStats['epRegenCount'])
 		print()
 		print('Abilities:')
-		for ability in range(len(cloneStats)-4):
-			print(cloneStats[ability])
+		for ability in range(len(cloneStats['abilities'])):
+			print(cloneStats['abilities'][ability])
 		print()
 		input() 
 		opponent = randint(1,2)
@@ -631,9 +631,9 @@ while True:
 			print('EP:',EP)
 			print('Clones under your command:',clonesOnSite)
 			print()
-			for ability in range(len(cloneStats)-4):
+			for ability in range(len(cloneStats['abilities'])):
 				y = str(ability+1)+')'
-				print(y,cloneStats[ability])
+				print(y,cloneStats['abilities'][ability])
 
 			attack = getch()
 
@@ -744,8 +744,8 @@ while True:
 		print('EP regen:',narratorStats['epRegenCount'])
 		print()
 		print('Abilities')
-		for ability in range(len(narratorStats)-4):
-			print(narratorStats[ability])
+		for ability in range(len(narratorStats['abilities'])):
+			print(narratorStats['abilities'][ability])
 		print()
 		input()
 		opponentAsleep = False
@@ -788,9 +788,9 @@ while True:
 			print('HP:',HP)
 			print('EP:',EP)
 			print()
-			for ability in range(len(narratorStats)-4):
+			for ability in range(len(narratorStats['abilities'])):
 				y = str(ability+1)+')'
-				print(y,narratorStats[ability])
+				print(y,narratorStats['abilities'][ability])
 			print()
 
 			attack = getch()
@@ -871,8 +871,8 @@ while True:
 		print('EP regen chance:',jediStats['epRegenChance'])
 		print('EP regen:',jediStats['epRegenCount'])
 		print()
-		for ability in range(len(jediStats)-4):
-			print(jediStats[ability])
+		for ability in range(len(jediStats['abilities'])):
+			print(jediStats['abilities'][ability])
 		print()
 		input()
 		forceBlock = False
@@ -913,9 +913,9 @@ while True:
 			print('HP:',HP)
 			print('EP:',EP)
 			print()
-			for ability in range(len(jediStats)-4):
+			for ability in range(len(jediStats['abilities'])):
 				y = str(ability+1)+')'
-				print(y,jediStats[ability])
+				print(y,jediStats['abilities'][ability])
 			print()
 
 			attack = getch()
@@ -995,8 +995,8 @@ while True:
 		print('EP regen chance:',walleStats['epRegenChance'])
 		print('EP regen:',walleStats['epRegenCount'])
 		print()
-		for ability in range(len(walleStats)-4):
-			print(walleStats[ability])
+		for ability in range(len(walleStats['abilities'])):
+			print(walleStats['abilities'][ability])
 		print()
 		input() 
 		opponent = randint(1,2)
@@ -1036,9 +1036,9 @@ while True:
 			print('HP:',HP)
 			print('EP:',EP)
 			print()
-			for ability in range(len(walleStats)-4):
+			for ability in range(len(walleStats['abilities'])):
 				y = str(ability+1)+')'
-				print(y,walleStats[ability])
+				print(y,walleStats['abilities'][ability])
 			print()
 
 			attack = getch()
@@ -1110,8 +1110,8 @@ while True:
 		print('EP regen:',potterStats['epRegenCount'])
 		print()
 		print('Abilities:')
-		for ability in range(len(potterStats)-4):
-			print(potterStats[ability])
+		for ability in range(len(potterStats['abilities'])):
+			print(potterStats['abilities'][ability])
 		print()
 		input()
 		opponent = randint(1,2)
@@ -1151,9 +1151,9 @@ while True:
 			print('HP:',HP)
 			print('EP:',EP)
 			print()
-			for ability in range(len(potterStats)-4):
+			for ability in range(len(potterStats['abilities'])):
 				y = str(ability+1)+')'
-				print(y,potterStats[ability])
+				print(y,potterStats['abilities'][ability])
 			print()
 
 			attack = input()
