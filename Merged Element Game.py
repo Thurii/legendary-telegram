@@ -247,9 +247,6 @@ while True:
 		sleep(1)
 		while True:
 
-			if opponentPoisoned == True:
-				opponentHP = opponentHP - 5
-
 			if randint(1,100) <= waterStats['epRegenChance']:
 				EP = EP + waterStats['epRegenCount']
 
