@@ -3,7 +3,7 @@
 import subprocess as sp
 from time import sleep
 import sys
-from random import randint
+from random import randint,random
 from test_enemy import test
 from Skullken import skullken
 from element_game_stats import *
@@ -33,7 +33,7 @@ def potterSpellCast(selectedPotterSpell,HP,EP,opponentDisarmed,opponentHP):
 		EP = 0
 		print('AVADA KEDAVRA!!!')
 	
-	return EP,opponentHP,HP,opponentDisarmed
+	return dict(zip(['EP','opponentHP','HP','opponentDisarmed'],[EP,opponentHP,HP,opponentDisarmed]))
 
 #########################################################################
 class _Getch:
@@ -213,7 +213,7 @@ while True:
 			elif opponent == 2:
 				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
 
-			opponentHP,opponentEP,damage = results[0],results[1],results[2]
+			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
 
 			HP = HP - damage
 
@@ -328,7 +328,7 @@ while True:
 			elif opponent == 2:
 				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
 
-			opponentHP,opponentEP,damage = results[0],results[1],results[2]
+			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
 
 			HP = HP - damage
 
@@ -446,7 +446,7 @@ while True:
 			elif opponent == 2:
 				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
 
-			opponentHP,opponentEP,damage = results[0],results[1],results[2]
+			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
 
 			HP = HP - damage
 
@@ -563,7 +563,7 @@ while True:
 			elif opponent == 2:
 				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
 
-			opponentHP,opponentEP,damage = results[0],results[1],results[2]
+			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
 
 			HP = HP - damage
 
@@ -711,7 +711,7 @@ while True:
 				elif opponent == 2:
 					results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
 
-				opponentHP,opponentEP,damage = results[0],results[1],results[2]
+				opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
 
 				HP = HP - damage
 
@@ -849,7 +849,7 @@ while True:
 				elif opponent == 2:
 					results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
 
-				opponentHP,opponentEP,damage = results[0],results[1],results[2]
+				opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
 
 				HP = HP - damage
 
@@ -968,7 +968,7 @@ while True:
 			elif opponent == 2:
 				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
 
-			opponentHP,opponentEP,damage = results[0],results[1],results[2]
+			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
 
 			HP = HP - damage
 
@@ -1092,7 +1092,7 @@ while True:
 			elif opponent == 2:
 				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
 
-			opponentHP,opponentEP,damage = results[0],results[1],results[2]
+			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
 
 			HP = HP - damage
 
@@ -1158,7 +1158,7 @@ while True:
 			if str(attack) == '1':
 				spellResult = potterSpellCast(selectedPotterSpell,HP,EP,opponentDisarmed,opponentHP)
 
-				EP,opponentHP,HP,opponentDisarmed = spellResult[0],spellResult[1],spellResult[2],spellResult[3]
+				EP,opponentHP,HP,opponentDisarmed = spellResult['EP'],spellResult['opponentHP'],spellResult['HP'],spellResult['opponentDisarmed']
 
 			elif str(attack) == '2':
 				if EP >= 10:
@@ -1205,7 +1205,7 @@ while True:
 			elif opponent == 2:
 				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
 
-			opponentHP,opponentEP,damage = results[0],results[1],results[2]
+			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
 
 			HP = HP - damage
 
