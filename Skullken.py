@@ -1,5 +1,14 @@
-from random import randint
+from random import randint, choice
 from element_game_stats import skullkenStats
+
+narratorConfusion = [
+"",
+"*Narrator Wonders if he\'s Reading this Correctly* ",
+"*Narrator\'s Headache Intensifies* "
+"*Narrator Becomes Confused* ",
+"*Narrator Shivers* ",
+"*Narrator Gives Skullken a Weird Look* ",
+]
 
 def skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed):
 	damage = 0
@@ -23,7 +32,7 @@ def skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDis
 		if opponentEP >= 18:
 			damage = damage + 12
 			opponentEP = opponentEP - 18
-			print('Skullken used *Narrator Wonders if he\'s Reading this Correctly* Gkop?')
+			print('Skullken used '+choice(narratorConfusion)+'Gkop?')
 		else:
 			print('Skullken Gkopped himself')
 
@@ -31,7 +40,7 @@ def skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDis
 		if opponentEP >= 24:
 			damage = damage + 10
 			opponentEP = opponentEP - 19
-			print('Skullken bopped you!? *Narrator\'s Headache Intensifies*')
+			print('Skullken bopped you!? '+choice(narratorConfusion))
 		else:
 			print('Skullken bopped himself...')
 
@@ -39,7 +48,7 @@ def skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDis
 		if opponentEP >= 1:
 			damage = damage + 1
 			opponentEP = opponentEP - 1
-			print('Skullken lopped you! *Narrator Becomes Confused*')
+			print('Skullken lopped you! '+choice(narratorConfusion))
 		else:
 			print('Skullken lopped himself')
 
@@ -47,9 +56,9 @@ def skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDis
 		if opponentEP >= 78:
 			damage = damage + 15
 			opponentEP = opponentEP - 78
-			print('Skullken... *Narrator Shivers* "Licked" you')
+			print('Skullken... '+choice(narratorConfusion)+'"Licked" you')
 		else:
-			print('*Narrator Gives Skullken a Weird Look* Skullken licked himself...')
+			print('Skullken licked himself...'+choice(narratorConfusion))
 
 	if opponentSinkHole > 0:
 		opponentEP = opponentEP - 25
@@ -59,4 +68,4 @@ def skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDis
 
 	input()
 
-	return opponentHP,opponentEP,damage,opponentPoisoned,opponentSinkHole,opponentDisarmed
+	return dict(zip(['opponentHP','opponentEP','damage','opponentPoisoned','opponentSinkHole','opponentDisarmed'],[opponentHP,opponentEP,damage,opponentPoisoned,opponentSinkHole,opponentDisarmed]))

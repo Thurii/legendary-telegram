@@ -59,4 +59,4 @@ def test(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarme
 
 	input()
 
-	return opponentHP,opponentEP,damage,opponentPoisoned,opponentSinkHole,opponentDisarmed
+	return dict(zip(['opponentHP','opponentEP','damage','opponentPoisoned','opponentSinkHole','opponentDisarmed'],[opponentHP,opponentEP,damage,opponentPoisoned,opponentSinkHole,opponentDisarmed]))
