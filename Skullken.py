@@ -1,10 +1,11 @@
+#This was Jacob's idea
 from random import randint, choice
 from element_game_stats import skullkenStats
 
 narratorConfusion = [
 "",
-"*Narrator Wonders if he\'s Reading this Correctly* ",
-"*Narrator\'s Headache Intensifies* "
+"*Narrator Wonders if he's Reading this Correctly* ",
+"*Narrator's Headache Intensifies* "
 "*Narrator Becomes Confused* ",
 "*Narrator Shivers* ",
 "*Narrator Gives Skullken a Weird Look* ",

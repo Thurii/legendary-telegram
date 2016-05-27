@@ -1,12 +1,18 @@
 #!/usr/bin/python3.4
 
-import subprocess as sp
+'''
+I work on this in my free time, but I can't take all the credit.
+If it weren't for Ethan and Jacob, I would have stopped working on this long ago.
+So thank you guys for keeping me interested in this, and coming up with some of the more fun characters.
+'''
+
+import subprocess as sp #clear()
 from time import sleep
-import sys
-from random import randint,random
-from test_enemy import test
-from Skullken import skullken
-from element_game_stats import *
+import sys #detect if OS is Windows or Linux
+from random import randint,random #random chance things
+from test_enemy import test #test()
+from Skullken import skullken #skullken()
+from element_game_stats import * #everyone's stats
 
 if sys.platform == 'linux':
 	def clear():
@@ -15,7 +21,7 @@ else:
 	def clear():
 		tmp = sp.call('cls',shell=True)
 
-def potterSpellCast(selectedPotterSpell,HP,EP,opponentDisarmed,opponentHP):
+def potterSpellCast(selectedPotterSpell,HP,EP,opponentDisarmed,opponentHP): #allows for different spells per battle
 	
 	if selectedPotterSpell == 0:
 		if EP >= 10:
@@ -76,7 +82,7 @@ class _GetchWindows:
 getch = _Getch()
 #########################################################################
 
-elements = [
+elements = [ #the main menu prints from this list, and it checks this list for the character you select
 'air',
 'water',
 'earth',
@@ -87,21 +93,36 @@ elements = [
 'walle',
 'potter'
 ]
-
+'''
+future version
+statusEffects={
+	'opponentPoisoned':False,
+	'opponentSinkHole':0,
+	'opponentAsleep':False,
+	'forceBlock':False,
+	'opponentDisarmed':0
+}
+'''
 while True:
-	opponentPoisoned = False
+	opponentPoisoned = False #reset things between battles
 	opponentSinkHole = 0
+	earthQuakeValue = 0
+	plasmaCooldown = 3
+	clonesOnSite = 0
+	electroSnakeLife = 0
+	opponentAsleep = False
+	forceBlock = False
 	opponentDisarmed = 0
 	results = ()
 	clear()
-	print('choose an element')
+	print('choose an element') #display characters
 	for x in range(0,len(elements)):
 		print(elements[x].title())
 	print('Settings')
 	print()
-	playerElement  =  str(input()).lower()
+	playerElement  =  str(input()).lower() #not case sensitive
 	clear()
-	if playerElement == elements[0]:
+	if playerElement == elements[0]: #air info screen
 		HP = airStats['hpPoints']
 		EP = airStats['epPoints']
 		clear()
@@ -116,7 +137,7 @@ while True:
 			print(airStats['abilities'][ability])
 		print()
 		input() 
-		opponent = randint(1,2)
+		opponent = randint(1,2) #initialize a random opponent
 		if opponent == 1:
 			opponentHP = testStats['hpPoints']
 			opponentEP = testStats['epPoints']
@@ -128,10 +149,10 @@ while True:
 		clear()
 		print('You are fighting '+opponentName+'!')
 		sleep(1)
-		while True:
+		while True: #fighting sequence
 
-			if randint(1,100) <= airStats['epRegenChance']:
-				EP = EP + airStats['epRegenCount']
+			if randint(1,100) <= airStats['epRegenChance']: #whether or not you'll regain EP
+				EP = EP + airStats['epRegenCount'] #how much EP you'll regain
 
 			if opponentHP < 1:
 				print('You win!')
@@ -145,15 +166,16 @@ while True:
 
 			clear()
 
+			print(opponentName) #enemy status
 			print('Enemy HP:',opponentHP)
 			print('Enemy EP:',opponentEP)
 
 			print()
 
-			print('HP:',HP)
+			print('HP:',HP) #your status
 			print('EP:',EP)
 			print()
-			for ability in range(len(airStats['abilities'])):
+			for ability in range(len(airStats['abilities'])): #print moveset
 				y = str(ability+1)+')'
 				print(y,airStats['abilities'][ability])
 			print()
@@ -161,9 +183,9 @@ while True:
 			attack = getch()
 
 			if str(attack) == '1':
-				if EP >= 15:
-					opponentHP = opponentHP - 10
-					EP = EP - 15
+				if EP >= 15: #check if you have enough EP
+					opponentHP = opponentHP - 10 #damage
+					EP = EP - 15 #EP cost
 					print('You used Category 1 wind!')
 					print(opponentName+'\'s HP is down to',opponentHP)
 					print()
@@ -197,7 +219,7 @@ while True:
 				if EP >= 25:
 					opponentEP = opponentEP - randint(0,20)
 					EP = EP - 25
-					HP = HP + randint(10,30)
+					HP = HP + randint(10,30) #health regen
 					print('You used Vortex Blast!')
 					print(opponentName+'\'s EP is down to',opponentEP)
 					print()
@@ -208,14 +230,14 @@ while True:
 			else:
 				print(attack,'is not an attack')
 
-			if opponent == 1:
+			if opponent == 1: #opponent's turn
 				results = test(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
 			elif opponent == 2:
 				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
 
-			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
+			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage'] #result of opponent's turn
 
-			HP = HP - damage
+			HP = HP - damage #take damage
 
 	elif playerElement == elements[1]:
 		HP = waterStats['hpPoints']
@@ -262,6 +284,7 @@ while True:
 
 			clear()
 
+			print(opponentName)
 			print('Enemy HP:',opponentHP)
 			print('Enemy EP:',opponentEP)
 
@@ -301,7 +324,7 @@ while True:
 
 			elif str(attack) == '3':
 				if EP >= 50:
-					opponentPoisoned = True
+					opponentPoisoned = True #inflict a status effect <sarcasm>definitely not overpowered</sarcasm>
 					EP = EP - 50
 					print('You used Poison!')
 					print(opponentName+'\'s HP is down to',opponentHP)
@@ -311,7 +334,7 @@ while True:
 					print()
 
 			elif str(attack) == '4':
-				WinterBlastCost = int(input('Cost: '))
+				WinterBlastCost = int(input('Cost: ')) #FANCY
 				if EP >= WinterBlastCost:
 					WinterBlastDamage = WinterBlastCost // 2 + 5
 					opponentHP = opponentHP - WinterBlastDamage
@@ -347,8 +370,6 @@ while True:
 			print(earthStats['abilities'][ability])
 		print()
 		input()
-		opponentSinkHole = 0
-		earthQuakeValue = 0
 		opponent = randint(1,2)
 		if opponent == 1:
 			opponentHP = testStats['hpPoints']
@@ -378,6 +399,7 @@ while True:
 
 			clear()
 
+			print(opponentName)
 			print('Enemy HP:',opponentHP)
 			print('Enemy EP:',opponentEP)
 
@@ -407,7 +429,7 @@ while True:
 
 			elif str(attack) == '2':
 				if EP >= 15:
-					opponentSinkHole = 4
+					opponentSinkHole = 4 #status effect with a duration
 					EP = EP - 15
 					print('You used Sink Hole')
 					print(opponentName+'\'s EP is down to',opponentEP)
@@ -494,6 +516,7 @@ while True:
 
 			clear()
 
+			print(opponentName)
 			print('Enemy HP:',opponentHP)
 			print('Enemy EP:',opponentEP)
 
@@ -571,7 +594,7 @@ while True:
 		HP = cloneStats['hpPoints']
 		EP = cloneStats['epPoints']
 		clear()
-		print('You have chosen Clone Trooper!')
+		print('You have chosen Clone Trooper!') #Ethan would approve
 		print()
 		print('HP:',HP)
 		print('EP:',EP)
@@ -584,9 +607,6 @@ while True:
 		print()
 		input() 
 		opponent = randint(1,2)
-		plasmaCooldown = 3
-		clonesOnSite = 0
-		electroSnakeLife = 0
 
 		if opponent == 1:
 			opponentHP = testStats['hpPoints']
@@ -619,6 +639,7 @@ while True:
 
 			clear()
 
+			print(opponentName)
 			print('Enemy HP:',opponentHP)
 			print('Enemy EP:',opponentEP)
 
@@ -634,7 +655,7 @@ while True:
 
 			attack = getch()
 
-			if attack == '1':
+			if attack == '1': #unique attack that creates decoys
 				if EP >= 5:
 					EP = EP - 5
 					clonesOnSite = clonesOnSite + 2
@@ -677,7 +698,7 @@ while True:
 					print('Your electro whip is out of power!')
 					print()
 
-			elif attack == '5':
+			elif attack == '5': #unique attack that spawns a "sidekick" of sorts
 				if EP >= 15:
 					EP = EP - 15
 					electroSnakeLife = randint(4,6)
@@ -687,11 +708,11 @@ while True:
 					print('Your electro snake is recharging!')
 					print()
 
-			elif attack == '6':
+			elif attack == '6': #I just, just... Not much to say about this... Ethan likes it
 				if plasmaCooldown == 0:
 					if EP >= 70:
 						EP = EP - 70
-						opponentHP = opponentHP - randint(70,100)
+						opponentHP = opponentHP - randint(70,100) #    O_O
 						print('You shot '+opponentName+' with a plasma ball!')
 						print(opponentName+'\'s HP is down to',opponentHP)
 						print()
@@ -699,7 +720,7 @@ while True:
 						print('Your plasma blaster is being reloaded!')
 						print()
 				else:
-					print('The plasma blaster is still being built')
+					print('The plasma blaster is still being built') #this is the only thing that adds some balance (and not very much at that)
 					print()
 
 			else:
@@ -715,19 +736,19 @@ while True:
 
 				HP = HP - damage
 
-			else:
+			else: #decoy
 				clonesOnSite = clonesOnSite - 1
 				print(opponentName+' shot one of your clone troopers!')
 				input()
 
-			if electroSnakeLife > 0:
+			if electroSnakeLife > 0: #Electro Snake attack
 				electroSnakeLife = electroSnakeLife - 1
 				opponentHP = opponentHP - randint(20,40)
 				print('Electro Snake shocked '+opponentName+'!')
 				print(opponentName+'\'s HP is down to',opponentHP)
 				input()
 
-	elif playerElement == elements[5]:
+	elif playerElement == elements[5]:#<humor>
 		HP = narratorStats['hpPoints']
 		EP = narratorStats['epPoints']
 		print('The Narrator prepares to speak in the third person!')
@@ -745,7 +766,6 @@ while True:
 			print(narratorStats['abilities'][ability])
 		print()
 		input()
-		opponentAsleep = False
 		opponent = randint(1,2)
 		if opponent == 1:
 			opponentHP = testStats['hpPoints']
@@ -777,6 +797,7 @@ while True:
 
 			clear()
 
+			print(opponentName)
 			print('Enemy HP:',opponentHP)
 			print('Enemy EP:',opponentEP)
 
@@ -805,7 +826,7 @@ while True:
 
 			elif str(attack) == '2':
 				if EP >= 30:
-					opponentAsleep = True
+					opponentAsleep = True #status effect
 					EP = EP - 30
 					print('The Narrator gave a mathematics lecture!')
 					print(opponentName+' fell asleep')
@@ -839,11 +860,11 @@ while True:
 			else:
 				print(attack,'is not an attack')
 
-			if opponentAsleep == True:
+			if opponentAsleep == True: #chance to wake up
 				if randint(1,3) == 1:
 					opponentAsleep = False
 
-			if opponentAsleep == False:
+			if opponentAsleep == False: #this really should be in the enemy function
 				if opponent == 1:
 					results = test(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
 				elif opponent == 2:
@@ -855,9 +876,9 @@ while True:
 
 			else:
 				print(opponentName+' is asleep from the mathematics lecture')
-				input()
+				input() #</humor>
 
-	elif playerElement == elements[6]:
+	elif playerElement == elements[6]: #Ethan and Jacob approve
 		HP = jediStats['hpPoints']
 		EP = jediStats['epPoints']
 		clear()
@@ -872,7 +893,6 @@ while True:
 			print(jediStats['abilities'][ability])
 		print()
 		input()
-		forceBlock = False
 		opponent = randint(1,2)
 		if opponent == 1:
 			opponentHP = testStats['hpPoints']
@@ -902,6 +922,7 @@ while True:
 
 			clear()
 
+			print(opponentName)
 			print('Enemy HP:',opponentHP)
 			print('Enemy EP:',opponentEP)
 
@@ -953,7 +974,7 @@ while True:
 			elif str(attack) == '4':
 				if EP >= 10:
 					EP = EP - 10
-					forceBlock = True
+					forceBlock = True #self inflicted status effect
 					print('You used force block!')
 					print()
 				else:
@@ -972,16 +993,16 @@ while True:
 
 			HP = HP - damage
 
-			if forceBlock == True:
-				damage = round(damage*(1/3),0)
+			if forceBlock == True: #minimize damage
+				damage = round(damage*.3,0)
 				forceBlock = False
 
-			if randint(1,100) <= 60:
+			if randint(1,100) <= 40: #slightly overpowered...
 				print('Your Padawan attacked '+opponentName+'!')
 				opponentHP = opponentHP - 15
 				input()
 
-	elif playerElement == elements[7]:
+	elif playerElement == elements[7]: #Jacob approves
 		HP = walleStats['hpPoints']
 		EP = walleStats['epPoints']
 		clear()
@@ -1025,6 +1046,7 @@ while True:
 
 			clear()
 
+			print(opponentName)
 			print('Enemy HP:',opponentHP)
 			print('Enemy EP:',opponentEP)
 
@@ -1064,8 +1086,8 @@ while True:
 
 			elif str(attack) == '3':
 				if EP >= 30:
-					opponentHP = opponentHP - 5
-					EP = EP - 30
+					opponentHP = opponentHP - 5 # don't
+					EP = EP - 30 #                ask
 					print('You used EVE\'s Blaster!')
 					print(opponentName+'\'s HP is down to',opponentHP)
 					print()
@@ -1075,8 +1097,8 @@ while True:
 
 			elif str(attack) == '4':
 				if EP >= 2:
-					EP = EP - 2
 					opponentHP = opponentHP - 10
+					EP = EP - 2
 					print('You used Cute Eyes!')
 					print(opponentName+'\'s EP is down to',opponentEP)
 					print()
@@ -1140,6 +1162,7 @@ while True:
 
 			clear()
 
+			print(opponentName)
 			print('Enemy HP:',opponentHP)
 			print('Enemy EP:',opponentEP)
 
@@ -1155,7 +1178,7 @@ while True:
 
 			attack = input()
 
-			if str(attack) == '1':
+			if str(attack) == '1': #selectable spell. batteries not included
 				spellResult = potterSpellCast(selectedPotterSpell,HP,EP,opponentDisarmed,opponentHP)
 
 				EP,opponentHP,HP,opponentDisarmed = spellResult['EP'],spellResult['opponentHP'],spellResult['HP'],spellResult['opponentDisarmed']
@@ -1165,7 +1188,7 @@ while True:
 					EP = EP - 10
 					print('You cast Expelliarmus!')
 					if randint(0,100) <= 50:
-						opponentDisarmed = opponentDisarmed + 2
+						opponentDisarmed = opponentDisarmed + 2 #status effect
 						opponentAttack = 0
 						print(opponentName,'was disarmed!')
 					else:
@@ -1177,7 +1200,7 @@ while True:
 
 			elif str(attack) == '3':
 				if EP >= 30:
-					opponentHP = int(random()*opponentHP)
+					opponentHP = int(random()*opponentHP) #this can hurt a bit...
 					EP = EP - 30
 					print('You cast Sectumsempra!')
 					print(opponentName+'\'s HP is down to',opponentHP)
@@ -1209,7 +1232,7 @@ while True:
 
 			HP = HP - damage
 
-			if randint(0,100) <= 10:
+			if randint(0,100) <= 10: #<sarcasm> This is definitely not overpowered. No not at all... </sarcasm>
 				HP = HP + 2*damage
 				EP = 10*EP
 				clear()
