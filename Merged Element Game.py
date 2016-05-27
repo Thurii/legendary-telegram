@@ -39,7 +39,7 @@ def potterSpellCast(selectedPotterSpell,HP,EP,opponentDisarmed,opponentHP): #all
 		EP = 0
 		print('AVADA KEDAVRA!!!')
 	
-	return dict(zip(['EP','opponentHP','HP','opponentDisarmed'],[EP,opponentHP,HP,opponentDisarmed]))
+	return dict(zip(['EP','opponentHP','HP','opponentDisarmed'],[EP,opponentHP,HP,statusEffects['opponentDisarmed']]))
 
 #########################################################################
 class _Getch:
@@ -93,26 +93,19 @@ elements = [ #the main menu prints from this list, and it checks this list for t
 'walle',
 'potter'
 ]
-'''
-future version
-statusEffects={
-	'opponentPoisoned':False,
-	'opponentSinkHole':0,
-	'opponentAsleep':False,
-	'forceBlock':False,
-	'opponentDisarmed':0
-}
-'''
+
 while True:
-	opponentPoisoned = False #reset things between battles
-	opponentSinkHole = 0
+	statusEffects={ #reset things between battles
+		'opponentPoisoned':False,
+		'opponentSinkHole':0,
+		'opponentAsleep':False,
+		'forceBlock':False,
+		'opponentDisarmed':0
+	}
 	earthQuakeValue = 0
 	plasmaCooldown = 3
 	clonesOnSite = 0
 	electroSnakeLife = 0
-	opponentAsleep = False
-	forceBlock = False
-	opponentDisarmed = 0
 	results = ()
 	clear()
 	print('choose an element') #display characters
@@ -122,7 +115,7 @@ while True:
 	print()
 	playerElement  =  str(input()).lower() #not case sensitive
 	clear()
-	if playerElement == elements[0]: #air info screen
+	if playerElement == elements[0]: #info screen
 		HP = airStats['hpPoints']
 		EP = airStats['epPoints']
 		clear()
@@ -231,9 +224,9 @@ while True:
 				print(attack,'is not an attack')
 
 			if opponent == 1: #opponent's turn
-				results = test(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = test(opponentHP,opponentEP,statusEffects)
 			elif opponent == 2:
-				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = skullken(opponentHP,opponentEP,statusEffects)
 
 			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage'] #result of opponent's turn
 
@@ -324,7 +317,7 @@ while True:
 
 			elif str(attack) == '3':
 				if EP >= 50:
-					opponentPoisoned = True #inflict a status effect <sarcasm>definitely not overpowered</sarcasm>
+					statusEffects['opponentPoisoned'] = True #inflict a status effect <sarcasm>definitely not overpowered</sarcasm>
 					EP = EP - 50
 					print('You used Poison!')
 					print(opponentName+'\'s HP is down to',opponentHP)
@@ -347,11 +340,11 @@ while True:
 				print(attack,'is not an attack')
 
 			if opponent == 1:
-				results = test(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = test(opponentHP,opponentEP,statusEffects)
 			elif opponent == 2:
-				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = skullken(opponentHP,opponentEP,statusEffects)
 
-			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
+			opponentHP,opponentEP,damage,statusEffects = results['opponentHP'],results['opponentEP'],results['damage'],results['statusEffects']
 
 			HP = HP - damage
 
@@ -429,7 +422,7 @@ while True:
 
 			elif str(attack) == '2':
 				if EP >= 15:
-					opponentSinkHole = 4 #status effect with a duration
+					statusEffects['opponentSinkHole'] = 4 #status effect with a duration
 					EP = EP - 15
 					print('You used Sink Hole')
 					print(opponentName+'\'s EP is down to',opponentEP)
@@ -464,11 +457,11 @@ while True:
 				print(attack,'is not an attack')
 
 			if opponent == 1:
-				results = test(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = test(opponentHP,opponentEP,statusEffects)
 			elif opponent == 2:
-				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = skullken(opponentHP,opponentEP,statusEffects)
 
-			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
+			opponentHP,opponentEP,damage,statusEffects = results['opponentHP'],results['opponentEP'],results['damage'],results['statusEffects']
 
 			HP = HP - damage
 
@@ -582,9 +575,9 @@ while True:
 				print(attack,'is not an attack')
 
 			if opponent == 1:
-				results = test(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = test(opponentHP,opponentEP,statusEffects)
 			elif opponent == 2:
-				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = skullken(opponentHP,opponentEP,statusEffects)
 
 			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
 
@@ -728,9 +721,9 @@ while True:
 
 			if clonesOnSite == 0:
 				if opponent == 1:
-					results = test(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+					results = test(opponentHP,opponentEP,statusEffects)
 				elif opponent == 2:
-					results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+					results = skullken(opponentHP,opponentEP,statusEffects)
 
 				opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
 
@@ -826,7 +819,7 @@ while True:
 
 			elif str(attack) == '2':
 				if EP >= 30:
-					opponentAsleep = True #status effect
+					statusEffects['opponentAsleep'] = True #status effect
 					EP = EP - 30
 					print('The Narrator gave a mathematics lecture!')
 					print(opponentName+' fell asleep')
@@ -860,17 +853,17 @@ while True:
 			else:
 				print(attack,'is not an attack')
 
-			if opponentAsleep == True: #chance to wake up
+			if statusEffects['opponentAsleep'] == True: #chance to wake up
 				if randint(1,3) == 1:
-					opponentAsleep = False
+					statusEffects['opponentAsleep'] = False
 
-			if opponentAsleep == False: #this really should be in the enemy function
+			if statusEffects['opponentAsleep'] == False: #this really should be in the enemy function
 				if opponent == 1:
-					results = test(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+					results = test(opponentHP,opponentEP,statusEffects)
 				elif opponent == 2:
-					results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+					results = skullken(opponentHP,opponentEP,statusEffects)
 
-				opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
+				opponentHP,opponentEP,damage,statusEffects = results['opponentHP'],results['opponentEP'],results['damage'],results['statusEffects']
 
 				HP = HP - damage
 
@@ -974,7 +967,7 @@ while True:
 			elif str(attack) == '4':
 				if EP >= 10:
 					EP = EP - 10
-					forceBlock = True #self inflicted status effect
+					statusEffects['forceBlock'] = True #self inflicted status effect
 					print('You used force block!')
 					print()
 				else:
@@ -985,17 +978,17 @@ while True:
 				print(attack,'is not an attack')
 
 			if opponent == 1:
-				results = test(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = test(opponentHP,opponentEP,statusEffects)
 			elif opponent == 2:
-				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = skullken(opponentHP,opponentEP,statusEffects)
 
 			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
 
 			HP = HP - damage
 
-			if forceBlock == True: #minimize damage
+			if statusEffects['forceBlock'] == True: #minimize damage
 				damage = round(damage*.3,0)
-				forceBlock = False
+				statusEffects['forceBlock'] = False
 
 			if randint(1,100) <= 40: #slightly overpowered...
 				print('Your Padawan attacked '+opponentName+'!')
@@ -1110,9 +1103,9 @@ while True:
 				print(attack,'is not an attack')
 
 			if opponent == 1:
-				results = test(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = test(opponentHP,opponentEP,statusEffects)
 			elif opponent == 2:
-				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = skullken(opponentHP,opponentEP,statusEffects)
 
 			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
 
@@ -1179,16 +1172,16 @@ while True:
 			attack = input()
 
 			if str(attack) == '1': #selectable spell. batteries not included
-				spellResult = potterSpellCast(selectedPotterSpell,HP,EP,opponentDisarmed,opponentHP)
+				spellResult = potterSpellCast(selectedPotterSpell,HP,EP,statusEffects['opponentDisarmed'],opponentHP)
 
-				EP,opponentHP,HP,opponentDisarmed = spellResult['EP'],spellResult['opponentHP'],spellResult['HP'],spellResult['opponentDisarmed']
+				EP,opponentHP,HP,statusEffects['opponentDisarmed'] = spellResult['EP'],spellResult['opponentHP'],spellResult['HP'],spellResult['opponentDisarmed']
 
 			elif str(attack) == '2':
 				if EP >= 10:
 					EP = EP - 10
 					print('You cast Expelliarmus!')
 					if randint(0,100) <= 50:
-						opponentDisarmed = opponentDisarmed + 2 #status effect
+						statusEffects['opponentDisarmed'] = statusEffects['opponentDisarmed'] + 2 #status effect
 						opponentAttack = 0
 						print(opponentName,'was disarmed!')
 					else:
@@ -1224,11 +1217,11 @@ while True:
 				print(attack,'is not an attack')
 
 			if opponent == 1:
-				results = test(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = test(opponentHP,opponentEP,statusEffects)
 			elif opponent == 2:
-				results = skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed)
+				results = skullken(opponentHP,opponentEP,statusEffects)
 
-			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
+			opponentHP,opponentEP,damage,statusEffects = results['opponentHP'],results['opponentEP'],results['damage'],results['statusEffects']
 
 			HP = HP - damage
 
@@ -1313,6 +1306,9 @@ while True:
 			print()
 			cloneStats['epRegenCount'] = int(input())
 			clear()
+
+	elif playerElement == 'exit':
+		break
 
 	else:
 		clear()
