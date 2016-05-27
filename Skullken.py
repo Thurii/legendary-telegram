@@ -11,7 +11,7 @@ narratorConfusion = [
 "*Narrator Gives Skullken a Weird Look* ",
 ]
 
-def skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDisarmed):
+def skullken(opponentHP,opponentEP,statusEffects):
 	damage = 0
 
 	if opponentPoisoned == True:
@@ -22,12 +22,12 @@ def skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDis
 
 	opponentAttack = randint(1,4)
 
-	if opponentDisarmed > 0:
-		if opponentDisarmed > 0:
+	if statusEffects['opponentDisarmed'] > 0:
+		if statusEffects['opponentDisarmed'] > 0:
 			print('Skullken sits there')
 		else:
 			print('Skullken stands up finally')
-		opponentDisarmed = opponentDisarmed - 1
+		statusEffects['opponentDisarmed'] = statusEffects['opponentDisarmed'] - 1
 
 	elif opponentAttack == 1:
 		if opponentEP >= 18:
@@ -61,12 +61,12 @@ def skullken(opponentHP,opponentEP,opponentPoisoned,opponentSinkHole,opponentDis
 		else:
 			print('Skullken licked himself...'+choice(narratorConfusion))
 
-	if opponentSinkHole > 0:
+	if statusEffects['opponentSinkHole'] > 0:
 		opponentEP = opponentEP - 25
-		opponentSinkHole = opponentSinkHole - 1
-		if opponentSinkHole == 0:
+		statusEffects['opponentSinkHole'] = statusEffects['opponentSinkHole'] - 1
+		if statusEffects['opponentSinkHole'] == 0:
 			print('Skullken got out of the Sink Hole!')
 
 	input()
 
-	return dict(zip(['opponentHP','opponentEP','damage','opponentPoisoned','opponentSinkHole','opponentDisarmed'],[opponentHP,opponentEP,damage,opponentPoisoned,opponentSinkHole,opponentDisarmed]))
+	return dict(zip(['opponentHP','opponentEP','damage','statusEffects'],[opponentHP,opponentEP,damage,statusEffects]))
