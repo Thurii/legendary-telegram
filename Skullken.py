@@ -14,7 +14,7 @@ narratorConfusion = [
 def skullken(opponentHP,opponentEP,statusEffects):
 	damage = 0
 
-	if opponentPoisoned == True:
+	if statusEffects['opponentPoisoned'] == True:
 		opponentHP = opponentHP - 5
 
 	if randint(0,100) <= skullkenStats['epRegenChance']:
