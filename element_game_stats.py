@@ -1,17 +1,3 @@
-testStats = {
-	'hpPoints':100,
-	'epPoints':100,
-	'epRegenCount':10,
-	'epRegenChance':30
-}
-
-skullkenStats = {
-	'hpPoints':65,
-	'epPoints':99,
-	'epRegenCount':1,
-	'epRegenChance':100
-}
-
 airStats = {
 	'hpPoints':80,
 	'epPoints':120,

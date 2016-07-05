@@ -9,10 +9,18 @@ So thank you guys for keeping me interested in this, and coming up with some of 
 import subprocess as sp #clear()
 from time import sleep
 import sys #detect if OS is Windows or Linux
-from random import randint,random #random chance things
-from test_enemy import test #test()
-from Skullken import skullken #skullken()
+from random import randint,random,choice #random chance things
 from element_game_stats import * #everyone's stats
+from os import listdir
+
+opponents = []
+
+for file in listdir('.'):
+	if file[-4:]=='.ego':
+		opponents.append(file)
+if opponents == []:
+	print('ERROR: no .ego files found')
+	exit()
 
 if sys.platform == 'linux':
 	def clear():
@@ -106,7 +114,6 @@ while True:
 	plasmaCooldown = 3
 	clonesOnSite = 0
 	electroSnakeLife = 0
-	results = ()
 	clear()
 	print('choose an element') #display characters
 	for x in range(0,len(elements)):
@@ -129,20 +136,16 @@ while True:
 		for ability in range(len(airStats['abilities'])):
 			print(airStats['abilities'][ability])
 		print()
-		input() 
-		opponent = randint(1,2) #initialize a random opponent
-		if opponent == 1:
-			opponentHP = testStats['hpPoints']
-			opponentEP = testStats['epPoints']
-			opponentName = 'Test'
-		if opponent == 2:
-			opponentHP = skullkenStats['hpPoints']
-			opponentEP = skullkenStats['epPoints']
-			opponentName = 'Skullken'
+		input()
+		sequence = 'init'
+		opponent = choice(opponents)
+		opponentAction = open('./'+opponent,'r').read()
+		exec(opponentAction)
 		clear()
 		print('You are fighting '+opponentName+'!')
 		sleep(1)
 		while True: #fighting sequence
+			sequence = 'battle'
 
 			if randint(1,100) <= airStats['epRegenChance']: #whether or not you'll regain EP
 				EP = EP + airStats['epRegenCount'] #how much EP you'll regain
@@ -150,11 +153,13 @@ while True:
 			if opponentHP < 1:
 				print('You win!')
 				input()
+				sequence = 'lost'
 				break
 
 			if HP < 1:
 				print('You lose!')
 				input()
+				sequence = 'won'
 				break
 
 			clear()
@@ -223,12 +228,7 @@ while True:
 			else:
 				print(attack,'is not an attack')
 
-			if opponent == 1: #opponent's turn
-				results = test(opponentHP,opponentEP,statusEffects)
-			elif opponent == 2:
-				results = skullken(opponentHP,opponentEP,statusEffects)
-
-			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage'] #result of opponent's turn
+			exec(opponentAction)
 
 			HP = HP - damage #take damage
 
@@ -248,20 +248,15 @@ while True:
 			print(waterStats['abilities'][ability])
 		print()
 		input()
-		opponent = randint(1,2)
-		if opponent == 1:
-			opponentHP = testStats['hpPoints']
-			opponentEP = testStats['epPoints']
-			opponentName = 'Test'
-		if opponent == 2:
-			opponentHP = skullkenStats['hpPoints']
-			opponentEP = skullkenStats['epPoints']
-			opponentName = 'Skullken'
+		sequence = 'init'
+		opponent = choice(opponents)
+		opponentAction = open('./'+opponent,'r').read()
+		exec(opponentAction)
 		clear()
 		print('You are fighting '+opponentName+'!')
 		sleep(1)
 		while True:
-
+			sequence = 'battle'
 			if randint(1,100) <= waterStats['epRegenChance']:
 				EP = EP + waterStats['epRegenCount']
 
@@ -339,12 +334,7 @@ while True:
 			else:
 				print(attack,'is not an attack')
 
-			if opponent == 1:
-				results = test(opponentHP,opponentEP,statusEffects)
-			elif opponent == 2:
-				results = skullken(opponentHP,opponentEP,statusEffects)
-
-			opponentHP,opponentEP,damage,statusEffects = results['opponentHP'],results['opponentEP'],results['damage'],results['statusEffects']
+			exec(opponentAction)
 
 			HP = HP - damage
 
@@ -363,20 +353,15 @@ while True:
 			print(earthStats['abilities'][ability])
 		print()
 		input()
-		opponent = randint(1,2)
-		if opponent == 1:
-			opponentHP = testStats['hpPoints']
-			opponentEP = testStats['epPoints']
-			opponentName = 'Test'
-		if opponent == 2:
-			opponentHP = skullkenStats['hpPoints']
-			opponentEP = skullkenStats['epPoints']
-			opponentName = 'Skullken'
+		sequence = 'init'
+		opponent = choice(opponents)
+		opponentAction = open('./'+opponent,'r').read()
+		exec(opponentAction)
 		clear()
 		print('You are fighting '+opponentName+'!')
 		sleep(1)
 		while True:
-
+			sequence = 'battle'
 			if randint(1,100) <= earthStats['epRegenChance']:
 				EP = EP + earthStats['epRegenCount']
 
@@ -456,12 +441,7 @@ while True:
 			else:
 				print(attack,'is not an attack')
 
-			if opponent == 1:
-				results = test(opponentHP,opponentEP,statusEffects)
-			elif opponent == 2:
-				results = skullken(opponentHP,opponentEP,statusEffects)
-
-			opponentHP,opponentEP,damage,statusEffects = results['opponentHP'],results['opponentEP'],results['damage'],results['statusEffects']
+			exec(opponentAction)
 
 			HP = HP - damage
 
@@ -480,20 +460,15 @@ while True:
 			print(fireStats['abilities'][ability])
 		print()
 		input()
-		opponent = randint(1,2)
-		if opponent == 1:
-			opponentHP = testStats['hpPoints']
-			opponentEP = testStats['epPoints']
-			opponentName = 'Test'
-		if opponent == 2:
-			opponentHP = skullkenStats['hpPoints']
-			opponentEP = skullkenStats['epPoints']
-			opponentName = 'Skullken'
+		sequence = 'init'
+		opponent = choice(opponents)
+		opponentAction = open('./'+opponent,'r').read()
+		exec(opponentAction)
 		clear()
 		print('You are fighting '+opponentName+'!')
 		sleep(1)
 		while True:
-
+			sequence = 'battle'
 			if randint(1,100) <= fireStats['epRegenChance']:
 				EP = EP + fireStats['epRegenCount']
 
@@ -579,7 +554,7 @@ while True:
 			elif opponent == 2:
 				results = skullken(opponentHP,opponentEP,statusEffects)
 
-			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
+			exec(opponentAction)
 
 			HP = HP - damage
 
@@ -613,7 +588,7 @@ while True:
 		print('You are fighting '+opponentName+'!')
 		sleep(1)
 		while True:
-
+			sequence = 'battle'
 			if randint(1,100) <= cloneStats['epRegenChance']:
 				EP = EP + cloneStats['epRegenCount']
 
@@ -725,7 +700,7 @@ while True:
 				elif opponent == 2:
 					results = skullken(opponentHP,opponentEP,statusEffects)
 
-				opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
+				exec(opponentAction)
 
 				HP = HP - damage
 
@@ -759,20 +734,15 @@ while True:
 			print(narratorStats['abilities'][ability])
 		print()
 		input()
-		opponent = randint(1,2)
-		if opponent == 1:
-			opponentHP = testStats['hpPoints']
-			opponentEP = testStats['epPoints']
-			opponentName = 'Test'
-		if opponent == 2:
-			opponentHP = skullkenStats['hpPoints']
-			opponentEP = skullkenStats['epPoints']
-			opponentName = 'Skullken'
+		sequence = 'init'
+		opponent = choice(opponents)
+		opponentAction = open('./'+opponent,'r').read()
+		exec(opponentAction)
 		clear()
 		print('You are fighting '+opponentName+'!')
 		sleep(1)
 		while True:
-
+			sequence = 'battle'
 			if randint(1,100) <= narratorStats['epRegenChance']:
 				EP = EP + narratorStats['epRegenCount']
 
@@ -853,23 +823,11 @@ while True:
 			else:
 				print(attack,'is not an attack')
 
-			if statusEffects['opponentAsleep'] == True: #chance to wake up
-				if randint(1,3) == 1:
-					statusEffects['opponentAsleep'] = False
+			exec(opponentAction)
 
-			if statusEffects['opponentAsleep'] == False: #this really should be in the enemy function
-				if opponent == 1:
-					results = test(opponentHP,opponentEP,statusEffects)
-				elif opponent == 2:
-					results = skullken(opponentHP,opponentEP,statusEffects)
+			HP = HP - damage
 
-				opponentHP,opponentEP,damage,statusEffects = results['opponentHP'],results['opponentEP'],results['damage'],results['statusEffects']
-
-				HP = HP - damage
-
-			else:
-				print(opponentName+' is asleep from the mathematics lecture')
-				input() #</humor>
+			input() #</humor>
 
 	elif playerElement == elements[6]: #Ethan and Jacob approve
 		HP = jediStats['hpPoints']
@@ -886,20 +844,15 @@ while True:
 			print(jediStats['abilities'][ability])
 		print()
 		input()
-		opponent = randint(1,2)
-		if opponent == 1:
-			opponentHP = testStats['hpPoints']
-			opponentEP = testStats['epPoints']
-			opponentName = 'Test'
-		if opponent == 2:
-			opponentHP = skullkenStats['hpPoints']
-			opponentEP = skullkenStats['epPoints']
-			opponentName = 'Skullken'
+		sequence = 'init'
+		opponent = choice(opponents)
+		opponentAction = open('./'+opponent,'r').read()
+		exec(opponentAction)
 		clear()
 		print('You are fighting '+opponentName+'!')
 		sleep(1)
 		while True:
-
+			sequence = 'battle'
 			if randint(1,100) <= jediStats['epRegenChance']:
 				EP = EP + jediStats['epRegenCount']
 
@@ -982,7 +935,7 @@ while True:
 			elif opponent == 2:
 				results = skullken(opponentHP,opponentEP,statusEffects)
 
-			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
+			exec(opponentAction)
 
 			HP = HP - damage
 
@@ -1010,20 +963,15 @@ while True:
 			print(walleStats['abilities'][ability])
 		print()
 		input() 
-		opponent = randint(1,2)
-		if opponent == 1:
-			opponentHP = testStats['hpPoints']
-			opponentEP = testStats['epPoints']
-			opponentName = 'Test'
-		if opponent == 2:
-			opponentHP = skullkenStats['hpPoints']
-			opponentEP = skullkenStats['epPoints']
-			opponentName = 'Skullken'
+		sequence = 'init'
+		opponent = choice(opponents)
+		opponentAction = open('./'+opponent,'r').read()
+		exec(opponentAction)
 		clear()
 		print('You are fighting '+opponentName+'!')
 		sleep(1)
 		while True:
-
+			sequence = 'battle'
 			if randint(1,100) <= walleStats['epRegenChance']:
 				EP = EP + walleStats['epRegenCount']
 
@@ -1107,7 +1055,7 @@ while True:
 			elif opponent == 2:
 				results = skullken(opponentHP,opponentEP,statusEffects)
 
-			opponentHP,opponentEP,damage = results['opponentHP'],results['opponentEP'],results['damage']
+			exec(opponentAction)
 
 			HP = HP - damage
 
@@ -1126,20 +1074,15 @@ while True:
 			print(potterStats['abilities'][ability])
 		print()
 		input()
-		opponent = randint(1,2)
-		if opponent == 1:
-			opponentHP = testStats['hpPoints']
-			opponentEP = testStats['epPoints']
-			opponentName = 'Test'
-		if opponent == 2:
-			opponentHP = skullkenStats['hpPoints']
-			opponentEP = skullkenStats['epPoints']
-			opponentName = 'Skullken'
+		sequence = 'init'
+		opponent = choice(opponents)
+		opponentAction = open('./'+opponent,'r').read()
+		exec(opponentAction)
 		clear()
 		print('You are fighting '+opponentName+'!')
 		sleep(1)
 		while True:
-
+			sequence = 'battle'
 			if randint(0,100) <= potterStats['epRegenChance']:
 				EP = EP + potterStats['epRegenCount']
 
@@ -1216,12 +1159,7 @@ while True:
 			else:
 				print(attack,'is not an attack')
 
-			if opponent == 1:
-				results = test(opponentHP,opponentEP,statusEffects)
-			elif opponent == 2:
-				results = skullken(opponentHP,opponentEP,statusEffects)
-
-			opponentHP,opponentEP,damage,statusEffects = results['opponentHP'],results['opponentEP'],results['damage'],results['statusEffects']
+			exec(opponentAction)
 
 			HP = HP - damage
 
