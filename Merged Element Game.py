@@ -1,4 +1,4 @@
-#!/usr/bin/python3.4
+#!/home/brian/anaconda3/bin/python3
 
 '''
 I work on this in my free time, but I can't take all the credit.
@@ -16,10 +16,10 @@ from os import listdir
 opponents = []
 
 for file in listdir('.'):
-	if file[-4:]=='.ego':
+	if '_opponent.gaf' in file:
 		opponents.append(file)
 if opponents == []:
-	print('ERROR: no .ego files found')
+	print('ERROR: no opponent files found')
 	exit()
 
 if sys.platform == 'linux':
@@ -116,8 +116,8 @@ while True:
 	electroSnakeLife = 0
 	clear()
 	print('choose an element') #display characters
-	for x in range(0,len(elements)):
-		print(elements[x].title())
+	for x in elements:
+		print(x.title())
 	print('Settings')
 	print()
 	playerElement  =  str(input()).lower() #not case sensitive
@@ -133,8 +133,8 @@ while True:
 		print('EP regen chance:',airStats['epRegenChance'])
 		print('EP regen:',airStats['epRegenCount'])
 		print()
-		for ability in range(len(airStats['abilities'])):
-			print(airStats['abilities'][ability])
+		for ability in airStats['abilities']:
+			print(ability)
 		print()
 		input()
 		sequence = 'init'
@@ -244,8 +244,8 @@ while True:
 		print('EP regen:',waterStats['epRegenCount'])
 		print()
 		print('Abilities')
-		for ability in range(len(waterStats['abilities'])):
-			print(waterStats['abilities'][ability])
+		for ability in waterStats['abilities']:
+			print(ability)
 		print()
 		input()
 		sequence = 'init'
@@ -349,8 +349,8 @@ while True:
 		print('EP regen:',earthStats['epPoints'])
 		print()
 		print('Abilities')
-		for ability in range(len(earthStats['abilities'])):
-			print(earthStats['abilities'][ability])
+		for ability in earthStats['abilities']:
+			print(ability)
 		print()
 		input()
 		sequence = 'init'
@@ -456,8 +456,8 @@ while True:
 		print('EP regen:',fireStats['epRegenCount'])
 		print()
 		print('Abilities')
-		for ability in range(len(fireStats['abilities'])):
-			print(fireStats['abilities'][ability])
+		for ability in fireStats['abilities']:
+			print(ability)
 		print()
 		input()
 		sequence = 'init'
@@ -570,8 +570,8 @@ while True:
 		print('EP regen:',cloneStats['epRegenCount'])
 		print()
 		print('Abilities:')
-		for ability in range(len(cloneStats['abilities'])):
-			print(cloneStats['abilities'][ability])
+		for ability in cloneStats['abilities']:
+			print(ability)
 		print()
 		input() 
 		opponent = randint(1,2)
@@ -730,8 +730,8 @@ while True:
 		print('EP regen:',narratorStats['epRegenCount'])
 		print()
 		print('Abilities')
-		for ability in range(len(narratorStats['abilities'])):
-			print(narratorStats['abilities'][ability])
+		for ability in narratorStats['abilities']:
+			print(ability)
 		print()
 		input()
 		sequence = 'init'
@@ -840,8 +840,8 @@ while True:
 		print('EP regen chance:',jediStats['epRegenChance'])
 		print('EP regen:',jediStats['epRegenCount'])
 		print()
-		for ability in range(len(jediStats['abilities'])):
-			print(jediStats['abilities'][ability])
+		for ability in jediStats['abilities']:
+			print(ability)
 		print()
 		input()
 		sequence = 'init'
@@ -930,11 +930,6 @@ while True:
 			else:
 				print(attack,'is not an attack')
 
-			if opponent == 1:
-				results = test(opponentHP,opponentEP,statusEffects)
-			elif opponent == 2:
-				results = skullken(opponentHP,opponentEP,statusEffects)
-
 			exec(opponentAction)
 
 			HP = HP - damage
@@ -959,8 +954,8 @@ while True:
 		print('EP regen chance:',walleStats['epRegenChance'])
 		print('EP regen:',walleStats['epRegenCount'])
 		print()
-		for ability in range(len(walleStats['abilities'])):
-			print(walleStats['abilities'][ability])
+		for ability in walleStats['abilities']:
+			print(ability)
 		print()
 		input() 
 		sequence = 'init'
@@ -1050,11 +1045,6 @@ while True:
 			else:
 				print(attack,'is not an attack')
 
-			if opponent == 1:
-				results = test(opponentHP,opponentEP,statusEffects)
-			elif opponent == 2:
-				results = skullken(opponentHP,opponentEP,statusEffects)
-
 			exec(opponentAction)
 
 			HP = HP - damage
@@ -1070,8 +1060,8 @@ while True:
 		print('EP regen:',potterStats['epRegenCount'])
 		print()
 		print('Abilities:')
-		for ability in range(len(potterStats['abilities'])):
-			print(potterStats['abilities'][ability])
+		for ability in potterStats['abilities']:
+			print(ability)
 		print()
 		input()
 		sequence = 'init'
